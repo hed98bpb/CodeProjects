@@ -1,0 +1,51 @@
+from random import *
+from tkinter import *
+from tkinter import messagebox
+
+boysNameArray = []
+girlsNameArray = []
+
+
+def main():
+    generateNames()
+
+    top = Tk(screenName="Name generator")
+
+    var = IntVar()
+
+    boys = Radiobutton(top, text="boys", variable=var, value=0)
+    boys.pack()
+
+    girls = Radiobutton(top, text="girls", variable=var, value=1)
+    girls.pack()
+
+    nameButton = Button(top, text="generate name", command=printNameInDialog(var))
+    nameButton.pack()
+
+    top.mainloop()
+
+
+def printNameInDialog(category):
+    messagebox.showinfo("Hello")
+
+    randomNumber = randrange(0, 6)
+
+    if category == 0:
+        messagebox.showinfo("Generated Name", boysNameArray[randomNumber])
+    elif category == 1:
+        messagebox.showinfo("Generated Name", girlsNameArray[randomNumber])
+
+
+def generateNames():
+    array = boysNameArray
+
+    with open('NameList', 'r') as nameList:
+        for name in nameList:
+            if name != "=\n":
+                array.append(name)
+            else:
+                array = girlsNameArray
+
+
+if __name__ == "__main__":
+    main()
